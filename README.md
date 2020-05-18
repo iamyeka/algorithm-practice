@@ -1,2 +1,4 @@
 # algorithm-practice
-demo of common algorithms
+updated list:
+- LRU Cache
+- Prime Count
