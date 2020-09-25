@@ -1,6 +1,8 @@
 package lru;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,6 +15,7 @@ import java.util.Map;
 public class LRUCache {
     private Map<Integer, Node> map;
     private DoubleList cache;
+    private List<Node> linkedList = new LinkedList<>();
     // 最大容量
     private int cap;
 
