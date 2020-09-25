@@ -1,6 +1,8 @@
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -113,6 +115,94 @@ public class Algorithm {
 
         return dummy.next;
 
+    }
+
+    /**
+     * 给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
+     *
+     * 如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
+     *
+     * 您可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+     *
+     * 输入：(2 -> 4 -> 3) + (5 -> 6 -> 4)
+     * 输出：7 -> 0 -> 8
+     * 原因：342 + 465 = 807
+     *
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        List<Integer> num1List = new ArrayList<>();
+        List<Integer> num2List = new ArrayList<>();
+
+        while (l1 != null) {
+            num1List.add(l1.val);
+            l1 = l1.next;
+        }
+        while (l2 != null) {
+            num2List.add(l2.val);
+            l2 = l2.next;
+        }
+
+        int size = Math.max(num1List.size(), num2List.size());
+        List<Integer> list = new ArrayList<>();
+
+        boolean addOne = false;
+        for (int i = 0; i < size; i++) {
+            int val1 = i < num1List.size() ? num1List.get(i) : 0;
+            int val2 = i < num2List.size() ? num2List.get(i) : 0;
+
+            int total = addOne ? (val1 + val2 + 1) : (val1 + val2);
+
+            if (total >= 10) {
+                total -= 10;
+                addOne = true;
+            } else {
+                addOne = false;
+            }
+
+            list.add(total);
+        }
+
+        if (addOne) {
+            list.add(1);
+        }
+
+        ListNode head = null;
+        for (int i = list.size() - 1; i >= 0; i--) {
+            ListNode tmp = new ListNode(list.get(i));
+            tmp.next = head;
+            head = tmp;
+        }
+
+        return head;
+
+    }
+
+    public static void main(String[] args) {
+        Algorithm algorithm = new Algorithm();
+
+        ListNode n1 = new ListNode(2);
+        ListNode n2 = new ListNode(4);
+        ListNode n3 = new ListNode(3);
+
+        n1.next = n2;
+        n2.next = n3;
+
+        ListNode n4 = new ListNode(5);
+        ListNode n5 = new ListNode(6);
+        ListNode n6 = new ListNode(4);
+
+        n4.next = n5;
+        n5.next = n6;
+
+        ListNode listNode = algorithm.addTwoNumbers(n1, n4);
+
+        while (listNode != null) {
+            System.out.println(listNode.val);
+            listNode = listNode.next;
+        }
     }
 
 }
