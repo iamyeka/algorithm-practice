@@ -35,8 +35,7 @@ public class LRUWithLinkedList {
         Node node = new Node(key, value);
         if (map.containsKey(key)) {
             linkedList.remove(node);
-            linkedList.push(node);
-            map.put(key, node);
+            linkedList.addFirst(node);
             return;
         }
 

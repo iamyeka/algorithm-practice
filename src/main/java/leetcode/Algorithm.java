@@ -101,7 +101,7 @@ public class Algorithm {
         ListNode slow = head;
 
         // 快指针先走N步，然后慢指针开始走，当快指针遍历到最后一个节点，慢指针停在倒数第N个节点的前一个节点，方便做删除操作
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n && fast != null; i++) {
             fast = fast.next;
         }
 
