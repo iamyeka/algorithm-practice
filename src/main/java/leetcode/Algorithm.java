@@ -1,5 +1,7 @@
 package leetcode;
 
+import lru.Node;
+
 import java.util.*;
 
 /**
@@ -280,6 +282,27 @@ public class Algorithm {
         }
 
         return res;
+    }
+
+    /**
+     * 找到两个链表的交汇节点
+     *
+     * @param head1
+     * @param head2
+     * @return
+     */
+    public Node intersectionNode(Node head1, Node head2) {
+        if (head1 == null || head2 == null) {
+            return null;
+        }
+
+        Node h1 = head1, h2 = head2;
+        while (h1 != h2) {
+            h1 = h1 == null ? h2 : h1.next;
+            h2 = h2 == null ? h1 : h2.next;
+        }
+
+        return h1;
     }
 
     public static void main(String[] args) {
