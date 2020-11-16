@@ -1,9 +1,6 @@
 package leetcode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author wrj
@@ -25,6 +22,16 @@ public class Algorithm {
         ListNode(int val, ListNode next) {
             this.val = val;
             this.next = next;
+        }
+    }
+
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
         }
     }
 
@@ -238,6 +245,41 @@ public class Algorithm {
         }
 
         return dp[length1][length2];
+    }
+
+    /**
+     * 二叉树层序遍历
+     *
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+
+        LinkedList<TreeNode> nodeLinkedList = new LinkedList<>();
+        nodeLinkedList.offer(root);
+
+        while (!nodeLinkedList.isEmpty()) {
+            List<Integer> tmp = new ArrayList<>();
+            for (int i = 0; i < nodeLinkedList.size(); i++) {
+                TreeNode treeNode = nodeLinkedList.poll();
+                tmp.add(treeNode.val);
+
+                if (treeNode.left != null) {
+                    nodeLinkedList.offer(treeNode.left);
+                }
+                if (treeNode.right != null) {
+                    nodeLinkedList.offer(treeNode.right);
+                }
+            }
+
+            res.add(tmp);
+        }
+
+        return res;
     }
 
     public static void main(String[] args) {
