@@ -266,7 +266,8 @@ public class Algorithm {
 
         while (!nodeLinkedList.isEmpty()) {
             List<Integer> tmp = new ArrayList<>();
-            for (int i = 0; i < nodeLinkedList.size(); i++) {
+            int level = nodeLinkedList.size();
+            for (int i = 0; i < level; i++) {
                 TreeNode treeNode = nodeLinkedList.poll();
                 tmp.add(treeNode.val);
 
@@ -328,6 +329,44 @@ public class Algorithm {
         }
 
         return h1;
+    }
+
+    /**
+     * 二叉树最大路径和
+     *
+     * @param root
+     * @return
+     */
+    // 最大路径全局变量
+    private int maxPath = Integer.MIN_VALUE;
+
+    // 解法实际调用入口
+    public int maxPathSum(TreeNode root) {
+        maxValue(root);
+        return maxPath;
+    }
+
+    // 递归方法入口
+    public int maxValue(TreeNode node) {
+        // node为null，为递归终止条件，返回0值
+        if (node == null) {
+            return 0;
+        }
+
+        // 计算左右子树的最大路径值，开始递归
+        int leftMaxValue = maxValue(node.left);
+        int rightMaxValue = maxValue(node.right);
+        // 如果左或右子数路径和小于0，则不走该子树，对应的路径和取为0
+        leftMaxValue = Math.max(leftMaxValue, 0);
+        rightMaxValue = Math.max(rightMaxValue, 0);
+
+        // 该节点的最大路径和，为该节点值加上左右子树的值
+        int maxVal = node.val + leftMaxValue + rightMaxValue;
+        // 更新全局最大值
+        maxPath = Math.max(maxPath, maxVal);
+
+        // 返回该节点可供达到的两种路径中的最大值
+        return node.val + Math.max(leftMaxValue, rightMaxValue);
     }
 
     public static void main(String[] args) {
