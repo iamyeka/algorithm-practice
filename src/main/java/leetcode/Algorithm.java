@@ -284,6 +284,31 @@ public class Algorithm {
         return res;
     }
 
+
+    /**
+     * 反转链表
+     *
+     * @param head
+     * @return
+     */
+    public ListNode reverseList(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+
+        ListNode nHead = null;
+        while (head != null) {
+            ListNode tmp = head.next;
+
+            head.next = nHead;
+            nHead = head;
+
+            head = tmp;
+        }
+
+        return nHead;
+    }
+
     /**
      * 找到两个链表的交汇节点
      *
