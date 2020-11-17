@@ -369,6 +369,47 @@ public class Algorithm {
         return node.val + Math.max(leftMaxValue, rightMaxValue);
     }
 
+    /**
+     * 给定一个二叉树，返回其节点值的锯齿形层次遍历。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）
+     *
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+
+        LinkedList<TreeNode> nodeLinkedList = new LinkedList<>();
+        nodeLinkedList.offer(root);
+        boolean leftToRight = true;
+
+        while (!nodeLinkedList.isEmpty()) {
+            LinkedList<Integer> levelList = new LinkedList<>();
+            int level = nodeLinkedList.size();
+            for (int i = 0; i < level; i++) {
+                TreeNode treeNode = nodeLinkedList.poll();
+                if (leftToRight) {
+                    levelList.offer(treeNode.val);
+                } else {
+                    levelList.offerFirst(treeNode.val);
+                }
+
+                if (treeNode.left != null) {
+                    nodeLinkedList.offer(treeNode.left);
+                }
+                if (treeNode.right != null) {
+                    nodeLinkedList.offer(treeNode.right);
+                }
+            }
+            leftToRight = !leftToRight;
+            res.add(levelList);
+        }
+
+        return res;
+    }
+
     public static void main(String[] args) {
         Algorithm algorithm = new Algorithm();
 
