@@ -410,6 +410,66 @@ public class Algorithm {
         return res;
     }
 
+    /**
+     * 二叉树前序遍历 迭代方式
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> preorderTraversal(TreeNode root) {
+        // 需要通过一个栈来保存节点信息
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+
+        Stack<TreeNode> stack = new Stack<>();
+
+        TreeNode tmp = root;
+        while (!stack.isEmpty() || tmp != null) {
+            while (tmp != null) {
+                stack.push(tmp);
+                res.add(tmp.val);
+                tmp = tmp.left;
+            }
+
+            tmp = stack.pop();
+            tmp = tmp.right;
+        }
+
+        return res;
+    }
+
+    /**
+     * 二叉树中遍历 迭代方式
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> inorderTraversal(TreeNode root) {
+        // 需要通过一个栈来保存节点信息
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+
+        Stack<TreeNode> stack = new Stack<>();
+
+        TreeNode tmp = root;
+        while (!stack.isEmpty() || tmp != null) {
+            while (tmp != null) {
+                stack.push(tmp);
+                tmp = tmp.left;
+            }
+
+            tmp = stack.pop();
+            res.add(tmp.val);
+            tmp = tmp.right;
+        }
+
+        return res;
+    }
+
     public static void main(String[] args) {
         Algorithm algorithm = new Algorithm();
 
