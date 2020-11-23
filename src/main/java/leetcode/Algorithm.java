@@ -470,29 +470,100 @@ public class Algorithm {
         return res;
     }
 
+    /**
+     * [] {} () 成对出现
+     *
+     * @param s
+     * @return
+     */
+    public boolean isValid(String s) {
+        int length;
+        if (s == null || (length = s.length()) == 0) {
+            return true;
+        }
+
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < length; i++) {
+            char c = s.charAt(i);
+            boolean flag = true;
+            if (c == ')' && (stack.isEmpty() || (flag = stack.pop() != '('))) {
+                return false;
+            }
+            if (c == '}' && (stack.isEmpty() || (flag = stack.pop() != '{'))) {
+                return false;
+            }
+            if (c == ']' && (stack.isEmpty() || (flag = stack.pop() != '['))) {
+                return false;
+            }
+            if (flag) {
+                stack.push(c);
+            }
+        }
+
+        return true;
+    }
+
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length < 3) {
+            return res;
+        }
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 2; i++) {
+            int a = nums[i];
+            if (a > 0) {
+                break;
+            }
+            if (i > 0 && a == nums[i - 1]) {
+                continue;
+            }
+            List<Integer> valueList = new ArrayList<>();
+            for (int i1 = i + 1; i1 < nums.length; i1++) {
+                int b = nums[i1];
+                if (i1 > i + 1 && b == nums[i1 - 1]) {
+                    continue;
+                }
+                int c = -a - b;
+                if (valueList.contains(c)) {
+                    res.add(Arrays.asList(a, b, c));
+                }
+
+                valueList.add(b);
+            }
+        }
+
+        return res;
+
+    }
+
     public static void main(String[] args) {
         Algorithm algorithm = new Algorithm();
 
-        ListNode n1 = new ListNode(2);
-        ListNode n2 = new ListNode(4);
-        ListNode n3 = new ListNode(3);
+//        ListNode n1 = new ListNode(2);
+//        ListNode n2 = new ListNode(4);
+//        ListNode n3 = new ListNode(3);
+//
+//        n1.next = n2;
+//        n2.next = n3;
+//
+//        ListNode n4 = new ListNode(5);
+//        ListNode n5 = new ListNode(6);
+//        ListNode n6 = new ListNode(4);
+//
+//        n4.next = n5;
+//        n5.next = n6;
+//
+//        ListNode listNode = algorithm.addTwoNumbers(n1, n4);
+//
+//        while (listNode != null) {
+//            System.out.println(listNode.val);
+//            listNode = listNode.next;
+//        }
 
-        n1.next = n2;
-        n2.next = n3;
-
-        ListNode n4 = new ListNode(5);
-        ListNode n5 = new ListNode(6);
-        ListNode n6 = new ListNode(4);
-
-        n4.next = n5;
-        n5.next = n6;
-
-        ListNode listNode = algorithm.addTwoNumbers(n1, n4);
-
-        while (listNode != null) {
-            System.out.println(listNode.val);
-            listNode = listNode.next;
-        }
+        int[] nums = new int[]{0, 0, 0};
+        List<List<Integer>> lists = algorithm.threeSum(nums);
+        System.out.println(lists);
     }
 
 }
